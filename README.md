@@ -1,12 +1,12 @@
 # sinatra/json_body_params
 
-If you're using a client side framework that sends raw json POST and PUT requests, then sinatra will not recognize the parameters.
+If you're using a client side framework that sends raw json POST and PUT requests (like Backbone.js does), then sinatra will not recognize the parameters.
 
 Example:
 
 ### Example
 
-If you recieved the following POST request
+If you recieve the following POST request
 
 ```
 POST /comments.json HTTP/1.1
@@ -23,22 +23,21 @@ From an ajax call like
 var data = { comment: { content: "This will make working with backbone way easier!" } };
 $.post('/comments.json', JSON.stringify(data), callback);
 ```
-
-Why would you stringify perfectly good query json? Not sure, but Backbone does for example. Without the extension the parameter is not recognized
+Then you might try to access the POST parameters like this in your application
 
 ```
 params[:comment]
 # => nil
-``` 
+```
 
-With the extension, it works
+But it doesn't work. With the extension, it's all fixed:
 
 ```
 register Sinatra::JsonBodyParams
 
 post '/comments.json' do
   params[:comment]
-	# => { :content => "This will make working with Backbone way easier!" }
+  # => { :content => "This will make working with Backbone way easier!" }
 end
 ```
 
