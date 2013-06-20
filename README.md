@@ -25,14 +25,14 @@ $.post('/comments.json', JSON.stringify(data), callback);
 ```
 Then you might try to access the POST parameters like this in your application
 
-```
+```ruby
 params[:comment]
 # => nil
 ```
 
 But it doesn't work. With the extension, it's all fixed:
 
-```
+```ruby
 register Sinatra::JsonBodyParams
 
 post '/comments.json' do
