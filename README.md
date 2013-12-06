@@ -2,8 +2,6 @@
 
 If you're using a client side framework that sends raw json POST and PUT requests (like Backbone.js does), then sinatra will not recognize the parameters.
 
-Example:
-
 ### Example
 
 If you recieve the following POST request
@@ -43,14 +41,18 @@ end
 
 ### Installation
 
-Add the following dependency to your `Gemfile`:
+1. Add the following dependency to your `Gemfile`:
 
-```ruby
-gem 'multi_json'
-```
+  ```ruby
+  # Gemfile
+  gem 'multi_json'
+  ```
 
-Copy the file `json_body_params.rb` into your project folder, with other modules.
+2. Copy the file `json_body_params.rb` into your project folder, where other modules live.
 
-Require the file, through a relative path or via the load path.
+3. Require the file, through a relative path or via the load path, and then register it.
 
-`register Sinatra::JsonBodyParams` in the main application.
+  ```ruby
+  # app.rb
+  register Sinatra::JsonBodyParams
+  ```
