@@ -1,10 +1,6 @@
 # sinatra/json_body_params
 
-If you're using a client side framework that sends raw json POST and PUT requests (like Backbone.js does), then sinatra will not recognize the parameters.
-
-### Example
-
-If you recieve the following POST request
+Client side frameworks that send raw json POST and PUT requests (like Backbone.js) do not show up in sinatra parameters. Consider the following POST request ..
 
 ```
 POST /comments.json HTTP/1.1
@@ -15,20 +11,21 @@ Content-Length: length
 {"comment":{"content":"This will make working with Backbone way easier!"}}
 ```
 
-From an ajax call like
+.. from an ajax call like ..
 
 ```javascript
 var data = { comment: { content: "This will make working with backbone way easier!" } };
-$.post('/comments.json', JSON.stringify(data), callback);
+$.post('/comments.json', JSON.stringify(data));
 ```
-Then you might try to access the POST parameters like this in your application
+
+.. you might try to access the POST parameters ..
 
 ```ruby
 params[:comment]
 # => nil
 ```
 
-But it doesn't work. With the extension, it's all fixed:
+.. but it doesn't work! With this extension, it behaves as expected:
 
 ```ruby
 register Sinatra::JsonBodyParams
@@ -41,14 +38,14 @@ end
 
 ### Installation
 
-1. Add the following dependency to your `Gemfile`:
+1. Add `multi_json` to your `Gemfile`:
 
   ```ruby
   # Gemfile
   gem 'multi_json'
   ```
 
-2. Copy the file `json_body_params.rb` into your project folder, where other modules live.
+2. Copy `json_body_params.rb` into your project folder, where other modules live.
 
 3. Require the file, through a relative path or via the load path, and then register it.
 
@@ -56,3 +53,5 @@ end
   # app.rb
   register Sinatra::JsonBodyParams
   ```
+
+There's an example at `example/app.rb`.

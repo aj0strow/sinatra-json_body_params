@@ -11,15 +11,11 @@ module Sinatra
       
       app.helpers do
         def json_body_params
-          unless @body_data
-            begin
-              str = request.body.read.to_s
-              @body_data = MultiJson.load(str, symbolize_keys: true)
-            rescue MultiJson::LoadError
-              @body_data = {}
-            end
+          @json_body_params ||= begin
+            MultiJson.load(request.body.read.to_s, symbolize_keys: true)
+          rescue MultiJson::LoadError
+            {}
           end
-          @body_data ||= {}
         end
       end
     end
